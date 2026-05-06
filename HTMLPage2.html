@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="yt.png">
+    <meta charset="UTF-8">
+    <title>YouTube 2.0</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+        }
+
+        header {
+            background: #ff00dc;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+        }
+
+        .video-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .video-card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .video-card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+        .video-title {
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 10px;
+            background: #ff00dc;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background: #cc0000;
+            }
+
+        .player {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .video-info {
+            margin-top: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>youtube 2.0</header>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <input type="text" id="search" class="search-box"
+                   placeholder="Search videos..." onkeyup="filterVideos()" />
+
+            <div class="video-card" data-title="Winchester house - Sam and Colby"
+                 onclick="playVideo('videoplayback (3).mp4','Winchester house - Sam and Colby')">
+                <img src="win.jpg">
+                <div class="video-title">Winchester house - Sam and Colby</div>
+                <button class="btn"
+                        onclick="goToLink(event, 'videoplayback (3).mp4')">
+                    Visit
+                </button>
+            </div>
+
+            <div class="video-card" data-title="Stanley Hotel - Sam and Colby"
+                 onclick="playVideo('videoplayback (2).mp4','Stanley Hotel - Sam and Colby')">
+                <img src="stan.jpg">
+                <div class="video-title">Stanley Hotel - Sam and Colby</div>
+                <button class="btn"
+                        onclick="goToLink(event, 'videoplayback (2).mp4')">
+                    Visit
+                </button>
+            </div>
+
+            <div class="video-card" data-title="Sam and colby creepy haunted 911 calls"
+                 onclick="playVideo('samandcolb.mp4','Sam and colby creepy haunted 911 calls')">
+                <img src="911call.jpg">
+                <div class="video-title">Sam and colby creepy haunted 911 calls</div>
+                <button class="btn"
+                        onclick="goToLink(event, 'samandcolb.mp4')">
+                    Visit
+                </button>
+            </div>
+
+            <div class="video-card" data-title="Our Unexplainable Night at Crescent Hotel (w/ KallmeKris & CelinaSpookyBoo) sam & colby"
+                 onclick="playVideo('videoplayback (1).mp4','Our Unexplainable Night at Crescent Hotel (w/ KallmeKris & CelinaSpookyBoo) sam & colby')">
+                <img src="1.png">
+                <div class="video-title">Our Unexplainable Night at Crescent Hotel (w/ KallmeKris & CelinaSpookyBoo) sam & colby</div>
+                <button class="btn" onclick="goToLink(event, 'videoplayback (1).mp4')">Visit</button>
+            </div>
+
+            <!-- ✅ FIXED: Sam & Colby now uses local video -->
+            <div class="video-card" data-title="The Conjuring House sam & colby"
+                 onclick="playVideo('videoplayback.mp4','The Conjuring House sam & colby')">
+                <img src="con.jpg">
+                <div class="video-title">The Conjuring House sam & colby</div>
+                <button class="btn"
+                        onclick="goToLink(event, 'videoplayback.mp4')">
+                    Visit
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Player -->
+        <div class="player">
+            <video id="player" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+
+            <div class="video-info">
+                <h2 id="videoTitle">Nature Video</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function playVideo(url, title) {
+        const player = document.getElementById('player');
+        const videoTitle = document.getElementById('videoTitle');
+
+        videoTitle.innerText = title;
+
+        player.style.display = 'block';
+        player.src = url;
+        player.play();
+        }
+
+        function goToLink(event, url) {
+        event.stopPropagation();
+        window.open(url, '_blank');
+        }
+
+        function filterVideos() {
+        const input = document.getElementById('search').value.toLowerCase();
+        const videos = document.querySelectorAll('.video-card');
+
+        videos.forEach(v => {
+        const title = v.getAttribute('data-title');
+        v.style.display = title.includes(input) ? 'block' : 'none';
+        });
+        }
+    </script>
+
+</body>
+</html>
